@@ -1,0 +1,250 @@
+<include>
+
+  <macro name="demo_ivr_count">
+    <input pattern="^(\d+)$">
+      <match>
+        <action function="play-file" data="voicemail/vm-you_have.wav"/>
+        <action function="say" data="$1" method="pronounced" type="name_spelled"/>
+        <action function="play-file" data="voicemail/vm-messages.wav"/>
+      </match>
+    </input>
+  </macro>
+
+  <macro name="please_select_language_with_greeting" pause="90"> <!-- See conf/autoload_config/ivr.conf.xml for an example on how to use this macro in an IVR -->
+    <input pattern="(.*)">
+      <match>
+        <!-- string together several existing sound files to create one long greeting -->
+        <action function="play-file" data="ivr/welcome-lintel.wav"/>
+        <action function="play-file" data="ivr/ivr-let_you_test.wav"/>
+        <action function="play-file" data="ivr/ivr-you_may_exit_by_hanging_up.wav"/>
+        <!-- note that you can do more than just play files, e.g. have pauses and do TTS -->
+
+        <!-- Menu option 1: Do Test out feature that you pressed one -->
+        <action function="play-file" data="ivr/ivr-to_continue_within_english.wav"/> <!--WE have to change this lines. --> 
+        <action function="play-file" data="ivr/ivr-hindi.wav"/> 
+      </match>
+    </input>
+  </macro>
+
+  <!-- The following macro is the same as demo_ivr_main_menu except it is the "short" version -->
+  <!-- The short version has all the options but not the initial greeting -->
+  <macro name="please_select_language_without_greeting" pause="100">
+    <input pattern="(.*)">
+      <match>
+        <!-- Menu option 1: Do Test out feature that you pressed one -->
+        <action function="play-file" data="ivr/ivr-to_continue_within_english.wav"/> <!--WE have to change this lines. --> 
+        <action function="play-file" data="ivr/ivr-hindi.wav"/> 
+
+               <!-- Menu option 7: Hang up the call -->
+        <action function="play-file" data="ivr/ivr-hangup_to_end_test.wav"/>
+        <action function="play-file" data="ivr/ivr-please.wav"/>
+        <action function="play-file" data="voicemail/vm-press.wav"/>
+        <action function="play-file" data="digits/7.wav"/>
+      </match>
+    </input>
+  </macro>
+
+  <macro name="Hin_language_ask_for_mob_num" pause="100">
+    <input pattern="(.*)">
+      <match>
+       
+   <!-- Menu option 1: To register your problem please press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_reg_problem_hi.wav"/> 
+   
+      </match>
+    </input>
+  </macro>
+
+ <macro name="Confirm_mob_num_hi" pause="100">
+    <input pattern="(.*)">
+      <match>
+       
+   <!-- Menu option 1: To Confirm you entered right number press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_confirm_you_right_mob_num_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-1_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+  <!-- Menu option 2: To Listen out Your entered number press 2  -->
+  <action function="play-file" data="ivr/ivr-to_listen_again_mob_num_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-2_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+  <!-- Menu option 3: To Re-enter Your mobile number press 3 -->
+  <action function="play-file" data="ivr/ivr-to_reenter_mob_num_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-3_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+      </match>
+    </input>
+  </macro>
+
+ <macro name="Enter_pincode_num_hi" pause="100">
+    <input pattern="(.*)">
+      <match>
+       
+   <!-- Menu option 1: To Confirm you entered right number press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_proceed_further_enter_your_pincode_num_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-1_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/>
+      </match>
+    </input>
+  </macro>
+
+
+ <macro name="Confirm_pincode_num_hi" pause="100">
+    <input pattern="(.*)">
+      <match>
+       
+   <!-- Menu option 1: To Confirm you entered right number press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_confirm_you_right_pincode_num_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-1_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+
+  <!-- Menu option 2: To Listen out Your entered pincode number press 2  -->
+  <action function="play-file" data="ivr/ivr-to_listen_again_pincode_num_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-2_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+
+  <!-- Menu option 3: To Re-enter Your pincode number press 3 -->
+  <action function="play-file" data="ivr/ivr-to_reenter_pincode_num_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-3_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+
+      </match>
+    </input>
+  </macro>
+
+
+ <macro name="Record_problem_voice_hi" pause="100">
+    <input pattern="(.*)">
+      <match>
+       
+   <!-- Menu option 1: To Confirm you entered right number press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_proceed_further_record_your_problem_into_voice_prompt_hi.wav" />
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-1_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+
+      </match>
+    </input>
+  </macro>
+
+ <macro name="Confirm_recorded_right_problem_hi" pause="100">
+    <input pattern="(.*)">
+      <match>
+   <!-- Menu option 1: To Confirm you entered right number press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_confirm_you_vc_rec_right_problem_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-1_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/>
+ 
+  <!-- Menu option 2: To Listen out Your entered pincode number press 2  -->
+  <action function="play-file" data="ivr/ivr-to_listen_again_vc_rec_problem_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-2_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+
+  <!-- Menu option 3: To Re-enter Your pincode number press 3 -->
+  <action function="play-file" data="ivr/ivr-to_rerecord_your_problem_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-3_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+      </match>
+    </input>
+  </macro>
+
+<!-- Record your res-address  -->
+ <macro name="Record_res_addr_voice_hi" pause="100">
+    <input pattern="(.*)">
+      <match>
+       
+   <!-- Menu option 1: To Confirm you entered right number press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_proceed_further_vc_rec_your_res_addr_hi.wav" />
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-1_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+
+      </match>
+    </input>
+  </macro>
+
+<!-- Confirm recorded right residential address -->
+
+    <macro name="Confirm_recorded_right_res_addr_hi" pause="100">
+    <input pattern="(.*)">
+      <match>
+       
+   <!-- Menu option 1: To Confirm you entered right number press 1 -->      
+  <action function="play-file" data="ivr/ivr-to_confirm_you_vc_rec_right_res_addr_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-1_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+ 
+  <!-- Menu option 2: To Listen out Your recorded voice res-addr  number press 2  -->
+  <action function="play-file" data="ivr/ivr-to_listen_again_vc_rec_res_addr_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-2_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+
+  <!-- Menu option 3: To Re-record Your res-addr  number press 3 -->
+  <action function="play-file" data="ivr/ivr-to_rerecord_your_res_address_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-please_v2_hi.wav"/> 
+  <action function="play-file" data="ivr/ivr-3_hi.wav"/>
+  <action function="play-file" data="ivr/ivr-press_v2_hi.wav"/> 
+  
+      </match>
+    </input>
+  </macro>
+
+<!-- ****************************************  --> 
+ 
+<!-- The following macro for play files "you have pressed one" -->
+  <macro name="you_have_pressed_1">
+      <input pattern="(.*)">
+         <match>
+           <action function="play-file" data="ivr/ivr-you_entered.wav"/>
+           <action function="play-file" data="ivr/ivr-number.wav"/>
+           <action function="play-file" data="digits/1.wav" />
+         </match>
+     </input>     
+  </macro>
+
+<!-- The following macro is the "long" greeting for the demo_ivr_sub_menu -->
+  <macro name="require_demo_ivr_sub_menu">
+    <input pattern="(.*)">
+      <match>
+        <action function="play-file" data="ivr/ivr-welcome_to_freeswitch.wav"/>
+        <action function="play-file" data="ivr/ivr-sample_submenu.wav"/>
+        
+        <!-- 1. To listen MOH -->
+        <action function="play-file" data="ivr/ivr-to_listen_to_moh.wav" />
+        <action function="play-file" data="ivr/ivr-please.wav"/>
+        <action function="play-file" data="voicemail/vm-press.wav"/>
+        <action function="play-file" data="digits/1.wav"/>
+        
+        <!-- Menu option *: Return to top menu -->
+        <action function="play-file" data="ivr/ivr-to_return_to_previous_menu.wav"/>
+        <action function="play-file" data="ivr/ivr-please.wav"/>
+        <action function="play-file" data="voicemail/vm-press.wav"/>
+        <action function="play-file" data="digits/star.wav"/>
+      </match>
+    </input>
+  </macro>
+
+</include>
+
+<!--
+For Emacs:
+Local Variables:
+mode:xml
+indent-tabs-mode:nil
+tab-width:2
+c-basic-offset:2
+End:
+For VIM:
+vim:set softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
+-->

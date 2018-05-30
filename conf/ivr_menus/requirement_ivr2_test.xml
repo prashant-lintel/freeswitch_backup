@@ -1,0 +1,222 @@
+<include>
+
+  <!-- Requirement ivr-->
+  <!-- First we made sounds prompts -->
+  <menu name="requirement_ivr2_test"
+        greet-long="phrase:please_select_language_with_greeting"
+        greet-short="phrase:please_select_language_without_greeting"
+        invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+        exit-sound="voicemail/vm-goodbye.wav"
+        confirm-macro=""
+        confirm-key=""
+        tts-engine="cepstral"
+        tts-voice="david"
+        confirm-attempts="3"
+        timeout="10000"
+        inter-digit-timeout="2000"
+        max-failures="3"
+        max-timeouts="2"
+        digit-len="4" >
+
+  <!--  <entry action="menu-exec-app" digits="1" param="playback phrase:you_have_pressed_1"/> -->
+ <entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $1,digit=1,extnum=${caller_id_number}"/> 
+
+<!-- <entry action="menu-exec-app" digits="1" param="execute_extension limit:'hash ivr in','event:Event-Name=MENU_ACTION,digit=1,extnum=${caller_id_number}','event:Event-Name=DB_ACTION,VAR1=True' inline" /> -->
+
+   <!-- <entry action="menu-sub" digits="1" param="Eng_sub_menu_mobnum" /> -->
+    <entry action="menu-sub" digits="1" param="Eng_sub_menu_mobnum" /> 
+    <entry action="menu-exit" digits="1" />
+ <entry action="menu-exec-app" digits="2" param="event Event-Name=MENU_ACTION,action=sendSMS $1,digit=2,extnum=${caller_id_number}"/>
+    <entry action="menu-sub" digits="2" param="Hin_sub_menu_mobnum" />
+    <entry action="menu-exit" digits="2" />  
+ <!--    <entry action="menu-exec-app" digits="3" param="ivr Eng_sub_menu_mobnum" /> -->
+  </menu>
+ 
+  <!-- IVR Sub Menu -->
+
+   <menu name="Eng_sub_menu_mobnum"
+       greet-long="phrase:Eng_language_ask_for_mob_num"
+       greet-short="phrase:Eng_language_ask_for_mob_num"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="10"
+       inter-digit-timeout="2000"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+   >
+
+ <entry action="menu-exec-app" digits="1" param="execute_extension limit:'hash ivr in',play_and_get_digits:'10 10 2 11000 # ivr/ivr-plz_entr_ur_valid_10_digt_num.wav ivr/ivr-plz_entr_ur_valid_10_digt_num.wav reg_num \d{10}',playback:ivr/ivr-you_entrd_following_mob_num.wav,queue_dtmf:4 inline" />
+ <entry action="menu-exec-app" digits="1" param="log This log is::::::::::::::::::::::::::::::-${username}"/>
+<!-- <entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $1,digit=${reg_num}"/> -->
+
+
+<!-- <playback:ivr/ivr-to_confirm_you_right_mob_num.wav,playback:ivr/ivr-please_v2.wav inline" /> -->
+ 
+        <entry action="menu-exec-app" digits="7" param="execute_extension playback:ivr/ivr-to_confirm_you_right_mob_num.wav,playback:ivr/ivr-please_v2.wav,playback:,playback:ivr/ivr-press_v2.wav,playback:ivr/ivr-2.wav inline" /> <!--this doesn't do anything -->
+        <entry action="menu-exec-app" digits="2" param="log Userdigits:---$1--${reg_num}" /> <!--just for log printing -->
+        <entry action="menu-exec-app" digits="4" param="execute_extension limit:'hash ivr in',say:'en number iterated ${reg_num}',ivr:Confirmation_mobnum inline" />
+        <entry action="menu-top" digits="5" />
+     <!--  <entry action="menu-top" digits="*" />  -->
+    </menu>
+
+ <menu name="Confirmation_mobnum"
+    greet-long="phrase:Confirm_mob_num"
+       greet-short="phrase:Confirm_mob_num"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="10"
+       inter-digit-timeout="2000"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+
+   >
+ <entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $1,mobnum=${reg_num}"/>
+   <entry action="menu-exec-app" digits="1" param="execute_extension playback:ivr/ivr-you_confirm_that_entr_right_mob_num.wav,ivr:Enter_pincode inline" />
+   
+  <entry action="menu-exec-app" digits="2" param="execute_extension playback:ivr/ivr-you_entrd_following_mob_num.wav,say:'en number iterated ${reg_num}' inline" /> 
+   <entry action="menu-exec-app" digits="3" param="execute_extension limit:'hash ivr in',play_and_get_digits:'10 10 2 11000 # ivr/ivr-plz_entr_ur_valid_10_digt_num.wav ivr/ivr-plz_entr_ur_valid_10_digt_num.wav reg_num \d{10}',queue_dtmf:2 inline" /> 
+  </menu>
+
+<menu name="Enter_pincode"
+    greet-long="phrase:Enter_pincode_num"
+       greet-short="phrase:Enter_pincode_num"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="6"
+       inter-digit-timeout="2000"
+       confirm-attempts="3"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+   >
+   <entry action="menu-exec-app" digits="1" param="execute_extension limit:'hash ivr in',play_and_get_digits:'6 6 2 8000 # ivr/ivr-plz_entr_valid_pincode.wav ivr/ivr-plz_entr_valid_6_digit_pincode.wav pincode_num \d{6}',queue_dtmf:2 inline" />
+<!--  <entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $2,digit=${pincode_num}"/> -->
+
+ <entry action="menu-exec-app" digits="2" param="execute_extension playback:ivr/ivr-you_entrd_following_pincode_num.wav,say:'en number iterated ${pincode_num}',ivr:Confirmation_pincode inline" /> 
+  </menu>
+
+<!--  ***********Confirmation Pincode************* -->
+
+ <menu name="Confirmation_pincode"
+    greet-long="phrase:Confirm_pincode_num"
+       greet-short="phrase:Confirm_pincode_num"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="6"
+       inter-digit-timeout="2000"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+
+   >
+<entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $3,pincode=${pincode_num}"/>
+   <entry action="menu-exec-app" digits="1" param="execute_extension playback:ivr/ivr-you_confirm_entrd_right_pincode_num.wav,ivr:Record_problem_voice inline" />
+ 
+   <entry action="menu-exec-app" digits="2" param="execute_extension playback:ivr/ivr-you_entrd_following_pincode_num.wav,say:'en number iterated ${pincode_num}' inline" /> 
+   <entry action="menu-exec-app" digits="3" param="execute_extension limit:'hash ivr in',play_and_get_digits:'6 6 2 8000 # ivr/ivr-plz_entr_valid_pincode.wav ivr/ivr-plz_entr_valid_6_digit_pincode.wav pincode_num \d{6}',queue_dtmf:2 inline" /> 
+
+
+  </menu>
+
+
+<!-- ********************************************* -->
+
+<!--  ***********Record problem into voice-prompt************* -->
+
+ <menu name="Record_problem_voice"
+    greet-long="phrase:Record_problem_voice"
+       greet-short="phrase:Record_problem_voice"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="6"
+       inter-digit-timeout="2000"
+       input-timeout="10"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+ 
+   >
+    
+   <entry action="menu-exec-app" digits="1" param="execute_extension limit:'hash ivr in',set:playback_terminators=*,playback:ivr/ivr-to_end_your_voice_record_press_star.wav,record:'/usr/local/freeswitch/recordings/test/prob_data_${caller_id_number}.wav 20 200 3',queue_dtmf:2 inline" />
+<!--  <entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $1,digit=prob_data_${caller_id_number}.wav"/> -->
+   <entry action="menu-exec-app" digits="2" param="execute_extension playback:ivr/ivr-you_had_voice_rec_following_problem.wav,playback:/usr/local/freeswitch/recordings/test/prob_data_${caller_id_number}.wav,ivr:Confirmation_recorded_right_problem inline" /> 
+  </menu>
+<menu name="Confirmation_recorded_right_problem"
+    greet-long="phrase:Confirm_recorded_right_problem"
+       greet-short="phrase:Confirm_recorded_right_problem"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="6"
+       inter-digit-timeout="2000"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+   >
+ <entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $1,prob=prob_data_${caller_id_number}.wav"/>
+   <entry action="menu-exec-app" digits="1" param="execute_extension playback:ivr/ivr-you_confirm_vc_rec_right_problem.wav,ivr:Record_res_addrs_voice inline" />
+ 
+   <entry action="menu-exec-app" digits="2" param="execute_extension playback:ivr/ivr-you_had_voice_rec_following_problem.wav,playback:/usr/local/freeswitch/recordings/test/prob_data_${caller_id_number}.wav inline" /> 
+   <entry action="menu-exec-app" digits="3" param="execute_extension limit:'hash ivr in',set:playback_terminators=*,playback:ivr/ivr-to_end_your_voice_record_press_star.wav,record:'/usr/local/freeswitch/recordings/test/prob_data_${caller_id_number}.wav 20 200 3',queue_dtmf:2 inline" /> 
+
+
+  </menu>
+
+<!-- ********************************************* -->
+
+<!--  ***********Record problem into voice-prompt************* -->
+ <menu name="Record_res_addrs_voice"
+    greet-long="phrase:Record_res_addr_voice"
+       greet-short="phrase:Record_res_addr_voice"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="6"
+       inter-digit-timeout="2000"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+   >
+   <entry action="menu-exec-app" digits="1" param="execute_extension limit:'hash ivr in',set:playback_terminators=*,playback:ivr/ivr-to_end_your_voice_record_press_star.wav,record:'/usr/local/freeswitch/recordings/test/prob_res_addr_${caller_id_number}.wav 20 200 3',queue_dtmf:2 inline" />
+
+<!--  <entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $1,digit=prob_res_addr_${caller_id_number}.wav"/> -->
+   <entry action="menu-exec-app" digits="2" param="execute_extension playback:ivr/ivr-you_had_voice_rec_following_res_addrs.wav,playback:/usr/local/freeswitch/recordings/test/prob_res_addr_${caller_id_number}.wav,ivr:Confirmation_recorded_right_res_addr inline" /> 
+  </menu>
+
+<menu name="Confirmation_recorded_right_res_addr"
+    greet-long="phrase:Confirm_recorded_right_res_addr"
+       greet-short="phrase:Confirm_recorded_right_res_addr"
+       invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+       exit-sound="voicemail/vm-goodbye.wav"
+       timeout="11000"
+       max-failures="3"
+       max-timeouts="2"
+       digit-len="6"
+       inter-digit-timeout="2000"
+       exec-on-max-failures="hangup"
+       exec-on-max-timeouts="hangup"
+   >
+<entry action="menu-exec-app" digits="1" param="event Event-Name=MENU_ACTION,action=sendSMS $1,resaddr=prob_res_addr_${caller_id_number}.wav"/>
+  
+   
+<entry action="menu-exec-app" digits="1" param="execute_extension playback:ivr/ivr-you_confirm_vc_rec_right_res_addr.wav,playback:ivr/ivr-your_problem_success_reg_in_our_sys.wav,playback:ivr/ivr-thank_you_for_call_lintel_srvc.wav,hangup inline" />
+<!-- <entry action="menu-exec-app" digits="1" param="event Event-Name=DB_ACTION,VAR1=True" /> -->
+
+   <entry action="menu-exec-app" digits="2" param="execute_extension playback:ivr/ivr-you_had_voice_rec_following_res_addrs.wav,playback:/usr/local/freeswitch/recordings/test/prob_res_addr_${caller_id_number}.wav inline" /> 
+   <entry action="menu-exec-app" digits="3" param="execute_extension limit:'hash ivr in',set:playback_terminators=*,playback:ivr/ivr-to_end_your_voice_record_press_star.wav,record:'/usr/local/freeswitch/recordings/test/prob_res_addr_${caller_id_number}.wav 20 200 3',queue_dtmf:2 inline" /> 
+  </menu>
+</include>

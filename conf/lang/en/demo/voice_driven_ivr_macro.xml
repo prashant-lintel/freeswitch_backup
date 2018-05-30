@@ -1,0 +1,46 @@
+<include>
+  <!-- Lintel official IVR macro -->
+
+<macro name="initial_lintel_VDI_phrase_with_greeting" pause="90"> <!-- See conf/autoload_config/ivr.conf.xml for an example on how to use this macro in an IVR -->
+    <input pattern="(.*)">
+      <match>
+        <!-- string together seiveral existing sound files to create one long greeting -->
+        <action function="play-file" data="ivr/ivr-thank_you_for_calling_lintel_technologies.wav"/>
+        <action function="play-file" data="ivr/ivr-if_you_know_ext_num_say.wav"/>
+       
+      </match>
+    </input>
+  </macro> 
+
+  <!-- The following macro is the same as demo_ivr_main_menu except it is the "short" version -->
+  <!-- The short version has all the options but not the initial greeting -->
+  <macro name="initial_lintel_phrase_without_greeting" pause="100">
+    <input pattern="(.*)">
+      <match>
+        <!-- Menu option 1: Do Test out feature that you pressed one -->
+        <action function="play-file" data="lintel/ivr-lintel_we_hav_not_received_valid_response_plz_try_again_later.wav"/> <!--WE have to change this lines. --> 
+
+      </match>
+    </input>
+  </macro>
+
+ <macro name="Not_received_valid_response_while_we_connect_operator" pause="100" >
+   <input pattern="(.*)">
+      <match>     
+        <action function="play-file" data="lintel/ivr-lintel_not_recv_valid_response_wait_while_we_conncect_call_to_operator.wav" />
+      </match>
+   </input>
+ </macro>
+
+</include>
+<!--
+For Emacs:
+Local Variables:
+mode:xml
+indent-tabs-mode:nil
+tab-width:2
+c-basic-offset:2
+End:
+For VIM:
+vim:set softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
+-->

@@ -1,0 +1,19 @@
+<menu name="PT_MOBILE"
+        greet-long="file_string://${greet_short}!pt_sounds/general.wav"
+        greet-short="phrase:pt_voicemail"
+        invalid-sound="silence_stream://1000"
+        exit-sound="pt_sounds/good_bye.wav"
+        timeout ="100"
+        inter-digit-timeout="2000"
+        max-failures="1"
+        max-timeouts="2"
+        digit-len="1">
+        <entry digits="1" action="menu-exec-app" param="event Event-Name=MENU_ACTION,action=sendSMS"/>
+        <entry digits="1" action="menu-play-sound" param="pt_sounds/link_sent.wav"/>
+        <entry digits="1" action="menu-exit"/>
+        <!--<entry digits="2" action="menu-exec-app"  param="set skip_greeting=true"/>-->
+        <!--<entry digits="2" action="menu-exec-app" param="event Event-Name=MENU_ACTION,action=voicemailSelected"/>-->
+        <!--<entry digits="2" action="menu-exec-app"  param="voicemail default ${pt_domain} ${actual_callee}"/>-->
+        <!--<entry digits="2" action="menu-exec-app" param="event Event-Name=MENU_ACTION,action=processVoicemail"/>-->
+        <!--<entry digits="2" action="menu-exit"/>-->
+</menu>

@@ -1,0 +1,29 @@
+<include>
+   <!-- Customized IVR setup -->
+   <!-- Customized IVR Main Menu -->
+
+   <menu name="custom_ivr"
+        greet-long="phrase:demo_ivr_count" 
+        greet-short="phrase:demo_ivr_main_menu_short"
+        invalid-sound="ivr/ivr-that_was_an_invalid_entry.wav"
+        exit-sound="voicemail/vm-goodbye.wav"
+        confirm-macro=""
+        confirm-key=""
+        tts-engine="flite"
+        tts-voice="rms"
+        confirm-attempts="3"
+        timeout="10000"
+        inter-digit-timeout="2000"
+        max-failures="3"
+        max-timeouts="2"
+        digit-len="4">
+
+   <entry action="menu-exec-app" digits="1" param="playback voicemail/vm-messages.wav" />
+   <entry action="menu-exec-app" digits="2" param="bridge user/1100" /> <!-- one thousand two hundred thirty four -->
+   <entry action="menu-exec-app" digits="3" param="say en number iterated 1234" /> <!--one two three four -->
+   <entry action="menu-exec-app" digits="4" param="transfer 1002" />
+   <entry action="menu-exec-app" digits="5" param="say en ip_address iterated 12.34.56.78" /> <!--one thousand two hundred thirty four dollars-->
+   <entry action="menu-exec-app" digits="7" param="play_and_get_digits 2 5 3 8000 # voicemail/vm-hello.wav ivr/ivr-that_was_an_invalid_entry.wav my_digits \d+ " />
+   <entry action="menu-exec-app" digits="8" param="log Userdigits--:---${my_digits}" />  
+ <entry action="menu-exec-app" digits="6" param="say en items pronounced 1234"/> <!--one thousand two hundred thirty four-->
+     </menu>

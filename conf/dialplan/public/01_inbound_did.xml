@@ -1,0 +1,73 @@
+<include>
+  <extension name="public_didd">
+     <condition field="destination_number" expression="^57578$">
+          <action application="answer" />
+          <action application="sleep" data="950" />
+          <action application="ivr" data="requirement_ivr" />
+          <action application="log" data="This log from 01_inbound_did-xml file" />
+     </condition>
+  </extension>
+   <extension name="required_ivr_ext">
+      <condition field="destination_number" expression="^(57575)$">
+         <action application="log" data="log-from-public-xml" />
+         <action application="transfer" data="1000 XML default" />
+      </condition>
+  </extension>
+
+  <extension name="required_ivr_ext2">
+      <condition field="destination_number" expression="^(76767)$">
+         
+         <action application="sleep" data="5000" />
+         <action application="answer" />
+         <action application="log" data="log-from-required-ivr2-xml" />
+         <action application="ivr" data="requirement_ivr2" />
+         <action application="log" data="THis ivr name is required ivr2 form public context."/>
+      </condition>
+  </extension>
+  
+  <extension name="required_ivr_extension4">
+      <condition field="destination_number" expression="^(7612345)$">
+         <action application="answer" />
+         <action application="sleep" data="1100" />
+         <action application="log" data="log-from-required-ivr2-xml" />
+         <action application="socket" data="127.0.0.1:8085 async full" />
+         <action application="log" data="THis ivr name is required ivr2 form public context."/>
+      </condition>
+  </extension>
+
+  <extension name="lintel_official_ivr">
+      <condition field="destination_number" expression="^(7988812345)$">
+         <action application="set" data="ringback=${us-ring}"/>
+         <action application="set" data="transfer_ringback=$${hold_music}"/>
+         <action application="answer" />
+         <action application="sleep" data="1100" />
+         <action application="log" data="log-from-required-ivr2-xml" />
+         <action application="ivr" data="lintel_official_ivr" />
+         <action application="log" data="This ivr name is required ivr2 form public context."/>
+      </condition>
+  </extension>
+
+   <extension name="lintel_official_VDI">
+      <condition field="destination_number" expression="^(763456)$">
+         <action application="set" data="ringback=${us-ring}"/>
+         <action application="set" data="transfer_ringback=$${hold_music}"/>
+         <action application="answer" />
+         <action application="sleep" data="1100" />
+         <action application="log" data="logi from-lintel-official-xml" />
+         <action application="socket" data="127.0.0.1:8089 async full"/>
+         <action application="log" data="This ivr name is lintel_vdi public context."/>
+      </condition>
+  </extension>
+
+
+  <extension name="required_ivr_extension5">
+      <condition field="destination_number" expression="^(761237)$">
+         <action application="answer" />
+         <action application="sleep" data="1100" />
+         <action application="log" data="log-from-required-ivr2-xml" />
+         <action application="socket" data="127.0.0.1:8087 async full" />
+         <action application="log" data="THis ivr name is required ivr2 form public context."/>
+      </condition>
+  </extension>
+
+</include>

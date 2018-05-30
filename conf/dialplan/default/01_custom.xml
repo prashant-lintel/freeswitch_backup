@@ -1,0 +1,14 @@
+<include>
+  <extension name="simple test">
+    <condition field="destination_number" expression="^(9101)$">
+      <action application="answer" />
+      <action application="say" data="en number iterated ${ani}" />
+      <action application="sleep" data="1000" />
+      <action application="say" data="en number pronounced ${ani}" />
+      <action application="sleep" data="1000" />
+      <action application="playback" data="voicemail/vm-goodbye.wav" />
+      <action application="sleep" data="2000" />
+      <action application="hangup" />
+    </condition>      
+  </extension>
+</include>
